@@ -1,0 +1,11 @@
+# Setting for production environment
+spring:
+  cloud:
+    gcp:
+      trace:
+        enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
+    web:
+      skipPattern: (^cleanup.*|.+favicon.*)

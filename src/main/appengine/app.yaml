@@ -1,0 +1,15 @@
+runtime: java
+env: flex
+
+handlers:
+  - url: /.*
+    script: this field is required, but ignored
+
+resources:
+  cpu: 1
+  memory_gb: 2
+
+# Specify the active profile of spring for production environment by environment variable.
+env_variables:
+  SPRING_PROFILES_ACTIVE: 'prod'
+

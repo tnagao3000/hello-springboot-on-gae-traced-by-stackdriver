@@ -1,0 +1,8 @@
+# Setting for development(default) environment
+# Disable trace by default.
+spring:
+  cloud:
+    gcp:
+      trace:
+        enabled: false
+
