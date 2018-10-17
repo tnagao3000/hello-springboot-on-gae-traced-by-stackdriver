@@ -40,7 +40,6 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-gcp-starter-trace</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 
 	</dependencies>
