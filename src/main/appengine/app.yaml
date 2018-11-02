@@ -9,6 +9,9 @@ resources:
   cpu: 1
   memory_gb: 2
 
+automatic_scaling:
+  min_num_instances: 1
+
 # Specify the active profile of spring for production environment by environment variable.
 env_variables:
   SPRING_PROFILES_ACTIVE: 'prod'
