@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import brave.Span;
 import brave.Tracer;
+import brave.Tracer.SpanInScope;
 
 @RestController
 public class HelloSpringbootController2 {
@@ -20,15 +21,15 @@ public class HelloSpringbootController2 {
 	public String b() {
 
 		// 全体(spanAll)
-		Span spanAll = tracer.newChild(tracer.currentSpan().context()).name("span-overall").start();
+		Span spanAll = tracer.nextSpan().name("span-overall").start();
 
-		try {
+		try (SpanInScope wsAll = tracer.withSpanInScope(spanAll)) {
 
 			// 前半(spanFirst)
 			spanAll.annotate("annotate first-half");
-			Span spanFirst = tracer.newChild(spanAll.context()).name("span-first-half").start();
+			Span spanFirst = tracer.nextSpan().name("span-first-half").start();
 
-			try {
+			try (SpanInScope wsFirst = tracer.withSpanInScope(spanFirst)) {
 				heavyJob();
 			} finally {
 				spanFirst.finish();
@@ -36,9 +37,9 @@ public class HelloSpringbootController2 {
 
 			// 後半(spanSecond)
 			spanAll.annotate("annotate second-half");
-			Span spanSecond = tracer.newChild(spanAll.context()).name("span-second-half").start();
+			Span spanSecond = tracer.nextSpan().name("span-second-half").start();
 
-			try {
+			try (SpanInScope wsSecond = tracer.withSpanInScope(spanSecond)) {
 				spanSecond.tag("second-key-a", "val-a");
 				spanSecond.tag("second-key-b", "val-b");
 
